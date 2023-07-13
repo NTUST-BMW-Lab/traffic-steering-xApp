@@ -1,7 +1,7 @@
 # TRAFFIC PREDICTION xAPP
 
 ## Data Cleansing
-There file in `src/` purpose to analysis the existence RIC data on InfluxDB. It explains to trace the data for creating the proper model to traffic prediction.
+There file in `src/RIC_Influx_Data_Cleansing.ipynb` purpose to analysis the existence RIC data on InfluxDB. It explains to trace the data for creating the proper model to traffic prediction.
 
 ![](./assets/heatmap.png)
 
