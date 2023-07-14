@@ -1,56 +1,89 @@
-import gym as GYM  
-import itertools as IT  
-import matplotlib as MPLOT  
-import matplotlib.style as MPLOTS  
-import numpy as nmp  
-import pandas as pnd  
-import sys  
-from collections import defaultdict as DD 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.arima.model import ARIMA
 
-env = gym.make("FrozenLake-v1")  
-n_observations1 = env.observation_space.n  
-n_actions1 = env.action_space.n  
+# Define the states, actions, and Q-table
+states = [state1, state2, ...]  # Define the states based on the traffic features
+actions = [action1, action2, ...]  # Define the actions, such as increasing or decreasing traffic flow
+q_table = np.zeros((len(states), len(actions)))
 
-def createEpsilonGreedyPolicy1(Q1, epsilon1, num_actions1):  
-    def policyFunction1(state):  
-  
-        Action_probabilities = nmp.ones(num_actions1,  
-                dtype = float) * epsilon1 / num_actions1  
-                  
-        best_action = nmp.argmax(Q1[state])  
-        Action_probabilities[best_action] += (1.0 - epsilon1)  
-        return Action_probabilities  
-  
-    return policyFunction1
+# Set the hyperparameters
+learning_rate = 0.1
+discount_factor = 0.9
+epsilon = 1.0
+epsilon_decay = 0.99
+num_episodes = 1000
 
-def qLearning1(env, num_episodes1, discount_factor = 1.0,  
-                            alpha = 0.6, epsilon1 = 0.1):    
-    Q1 = DD(lambda: nmp.zeros(env.action_space.n))  
-  
-    stats = MPLOT.EpisodeStats(  
-        episode_lengths = nmp.zeros(num_episodes1),  
-        episode_rewards = nmp.zeros(num_episodes1))   
-      
-    policy = createEpsilonGreedyPolicy1(Q1, epsilon1, env.action_space.n)  
-      
-    for Kth_episode in range(num_episodes1):  
-        state = env.reset()  
-          
-        for J in itertools.count():  
-            action_probabilities1 = policy(state)  
-            action = nmp.random.choice(nmp.arange(  
-                    len(action_probabilities1)),  
-                    p = action_probabilities1)   
-            next_state, reward, done, _ = env.step(action)  
-            stats.episode_rewards[Kth_episode] += reward  
-            stats.episode_lengths[Kth_episode] = J                
-            best_next_action = nmp.argmax(Q1[next_state])     
-            td_target = reward + discount_factor * Q1[next_state][best_next_action]  
-            td_delta = td_target - Q1[state][action]  
-            Q1[state][action] += alpha * td_delta  
-            if done:  
-                break  
-                  
-            state = next_state  
-      
-    return Q1, stats  
+# Traffic data preprocessing and initialization
+traffic_data = pd.read_csv('traffic_data.csv')  # Replace 'traffic_data.csv' with your traffic dataset
+traffic_data['Date'] = pd.to_datetime(traffic_data['Date'])
+traffic_data.set_index('Date', inplace=True)
+traffic_data = traffic_data.resample('D').sum()  # Resample the data to daily frequency
+
+# Split the data into training and testing sets
+train_data = traffic_data[:'2022-12-31']
+test_data = traffic_data['2023-01-01':]
+
+class Environment:
+    def __init__(self, num_states, data):
+        self.num_states = num_states
+        self.data = data
+
+    def reset(self):
+        # Reset environment to initial state
+        pass
+
+    def step(self, action):
+        # Perform action in the environment, return next_state, reward, done
+        pass
+
+    def sample_action(self):
+        # Randomly sample an action
+        pass
+
+env = Environment(num_episodes, traffic_data)
+
+# Q-learning algorithm
+for episode in range(num_episodes):
+    state = initial_state
+    done = False
+    
+    while not done:
+        # Choose an action using epsilon-greedy exploration
+        if np.random.uniform(0, 1) < epsilon:
+            action = np.random.choice(actions)
+        else:
+            action = actions[np.argmax(q_table[state])]
+        
+        # Perform the action and observe the reward and next state
+        next_state, reward, done = env.step(action)
+        
+        # Update the Q-value using the Bellman equation
+        q_table[state, action] = q_table[state, action] + learning_rate * (reward + discount_factor * np.max(q_table[next_state]) - q_table[state, action])
+        
+        state = next_state
+    
+    # Decay the exploration rate
+    epsilon *= epsilon_decay
+
+# Make predictions using the Q-learning model
+predictions = []
+for i in range(len(test_data)):
+    state = test_data.iloc[i-1]  # Get the previous state
+    action = actions[np.argmax(q_table[state])]  # Choose the action with the highest Q-value
+    # Apply the action to the ARIMA model to make a prediction
+    model = ARIMA(train_data, order=(1, 1, 1))  # Replace with the appropriate ARIMA order
+    model_fit = model.fit()
+    prediction = model_fit.forecast(steps=1)  # Adjust the number of forecast steps as needed
+    predictions.append(prediction[0][0])
+    # Update the state for the next iteration
+    state = update_state(state, action)  # Update the state based on the chosen action
+
+# Plot the predicted and actual values
+plt.plot(test_data.index, predictions, color='red', label='Predicted')
+plt.plot(test_data.index, test_data, color='purple', label='Actual')
+plt.xlabel('Date')
+plt.ylabel('Traffic')
+plt.legend()
+plt.show()
