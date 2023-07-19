@@ -116,3 +116,12 @@ $i_t$, $f_t$, $o_t$ are the input, forget, and output gate activations, respecti
 $g_t$ is the cell state update.
 $C_t$ is the updated cell state.
 $h_t$ is the current hidden state.
+
+## The Result of LSTM
+![](./assets/THDPResult.png)
+![](./assets/NB1RSRP.png)
+![](./assets/NB1RSRQ.png)
+![](./assets/NB2RSRP.png)
+![](./assets/NB2RSRQ.png)
+![](./assets/UERSRP.png)
+![](./assets/UERSRQ.png)
