@@ -5,8 +5,32 @@ from sklearn.preprocessing import MinMaxScaler
 from google.colab import drive
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import Normalizer
 
 drive.mount('/content/drive')
+
+class CLEANSING(object):
+    def __init__(self, df):
+      self.df = df
+
+    def change_to_field(self):
+        field_idb = self.df.groupby('_field')
+        dict_new_analytics = dict()
+        for i in range(len(unique_field)):
+           dict_new_analytics[unique_field[i]] = list(field_idb.get_group(unique_field[i])["_value"])
+        df_new_analytics = pd.DataFrame(dict_new_analytics)
+        df_new_analytics = df_new_analytics.drop(['DRB_UECqiDl','DRB_UECqiUl','DRB_UEThpDl','QosFlow_TotPdcpPduVolumeDl','RRU_PrbUsedDl','RRU_PrbUsedUl','TB_TotNbrDl','TB_TotNbrUl','Viavi_Geo_x','Viavi_Geo_y','Viavi_Geo_z','Viavi_Nb1_RsSinr','Viavi_Nb2_RsSinr','Viavi_QoS_5qi','Viavi_QoS_Gfbr','Viavi_QoS_Mfbr','Viavi_QoS_Priority','Viavi_QoS_Score','Viavi_QoS_TargetTput','Viavi_UE_anomalies','Viavi_UE_targetThroughputDl','Viavi_UE_targetThroughputUl'],axis=1)
+        return df_new_analytics
+
+    def normalizer(self):
+        self.df = self.df.dropna(axis=0)
+
+    def create_sequences(self, data, lookback):
+        X, y = [] , []
+        for i in range(len(data) - lookback):
+            X.append(data[i:(i + lookback), :])
+            y.append(data[i + lookback, :])
+        return np.array(X), np.array(y)
 
 df_ue = pd.read_csv('drive/MyDrive/NTUST BWM LAB/uedata.csv')
 df_ue.reset_index(drop=True, inplace=True)
@@ -33,7 +57,6 @@ for i in range(len(unique_field)):
 
 df_new_analytics = pd.DataFrame(dict_new_analytics)
 
-threshold = 0.95
 df_new_analytics = df_new_analytics.drop(['DRB_UECqiDl','DRB_UECqiUl','DRB_UEThpDl','QosFlow_TotPdcpPduVolumeDl','RRU_PrbUsedDl','RRU_PrbUsedUl','TB_TotNbrDl','TB_TotNbrUl','Viavi_Geo_x','Viavi_Geo_y','Viavi_Geo_z','Viavi_Nb1_RsSinr','Viavi_Nb2_RsSinr','Viavi_QoS_5qi','Viavi_QoS_Gfbr','Viavi_QoS_Mfbr','Viavi_QoS_Priority','Viavi_QoS_Score','Viavi_QoS_TargetTput','Viavi_UE_anomalies','Viavi_UE_targetThroughputDl','Viavi_UE_targetThroughputUl'],axis=1)
 
 new_data = []
@@ -44,13 +67,6 @@ df_new_analytics[column_df_analytics] = scaler.fit_transform(df_new_analytics[co
 for i in range(len(column_df_analytics)):
   MinMaxs['max'].append(np.max(df_new_analytics[column_df_analytics[i]]))
   MinMaxs['min'].append(np.min(df_new_analytics[column_df_analytics[i]]))
-
-def create_sequences(data, lookback):
-    X, y = [] , []
-    for i in range(len(data) - lookback):
-        X.append(data[i:(i + lookback), :])
-        y.append(data[i + lookback, :])
-    return np.array(X), np.array(y)
 
 sequence_length = 10
 X, y = create_sequences(df_new_analytics.values, sequence_length)
@@ -70,3 +86,10 @@ model1.compile(optimizer='adam', loss='mse', metrics=['accuracy'])
 history = model1.fit(X_train, y_train, epochs=50, batch_size=16, verbose=1)
 
 trainPredict = model1.predict(X_train)
+
+class CleansingData():
+   def __init__(self) -> None:
+      pass
+   
+   def dropColumn(self):
+      pass

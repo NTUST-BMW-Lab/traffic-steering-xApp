@@ -87,3 +87,7 @@ plt.xlabel('Date')
 plt.ylabel('Traffic')
 plt.legend()
 plt.show()
+
+class LSTM_Model():
+    def __init__(self):
+        pass
