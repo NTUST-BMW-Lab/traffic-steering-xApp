@@ -69,14 +69,14 @@ class Database():
         cfg = ConfigParser()
         cfg.read('tf_config.ini')
         for section in cfg.sections():
-            if section == 'influxdb':
+            if section == 'InfluxDB':
                 self.url = cfg.get(section, "url")
                 self.token = cfg.get(section, "token")
                 self.org = cfg.get(section, "org")
                 self.bucket = cfg.get(section, "bucket")
 
 if __name__ == "__main__":
-    db = Database(url="http://192.168.8.209:32086",token="qNXpLJ1Fhfls4yiGkUhswQISjXUWxwTG_DHUEu81_L0TiMANS2hC-6QT4Mch_q8QoYSJXDQIlT4f0trMpVXD3Q==",org="my-org")
+    db = Database()
     db.connect()
     res = db.queries("|> range(start: -1s)")
     print(res)
