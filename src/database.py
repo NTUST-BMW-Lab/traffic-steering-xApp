@@ -21,7 +21,7 @@ table
 values
 '''
 
-class Database():
+class Database(object):
     def __init__(self, url='', token='', org='', bucket='kpimon'):
         self.url = url
         self.token = token
@@ -35,11 +35,9 @@ class Database():
             self.client = InfluxDBClient(url=self.url, token=self.token, org=self.org)
             logger.info("Conected to Influx Database")
             return True
-
         except ApiException as e:
             logger.error(f"Error connecting to InfluxDB server: {e}")
             time.sleep(30)
-
         except Exception as e:
             logger.error(f"An error occurred: {e}")
             time.sleep(30)

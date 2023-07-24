@@ -1,9 +1,9 @@
 {
-    "xapp_name": "ad",
+    "xapp_name": "tp_xapp",
     "version": "1.0.0",
     "containers": [
         {
-            "name": "ad",
+            "name": "tp",
             "image": {
                 "tag": "1.0.0"
             }
@@ -13,18 +13,18 @@
         "ports": [
             {
                 "name": "rmr-data",
-                "container": "ad",
+                "container": "tp",
                 "port": 4560,
-                "txMessages": ["TS_ANOMALY_UPDATE"],
-                "rxMessages": ["TS_ANOMALY_ACK"],
+                "txMessages": ["PREDICTION_TP"],
+                "rxMessages": ["ACK_TP"],
                 "policies": [],
-                "description": "rmr receive data port for ad"
+                "description": "rmr receive data port for tp"
             },
             {
                 "name": "rmr-route",
-                "container": "ad",
+                "container": "tp",
                 "port": 4561,
-                "description": "rmr route port for ad"
+                "description": "rmr route port for tp"
             }
         ]
     },
@@ -32,8 +32,8 @@
         "protPort": "tcp:4560",
         "maxSize": 2072,
         "numWorkers": 1,
-        "rxMessages": ["TS_ANOMALY_ACK"],
-        "txMessages": ["TS_ANOMALY_UPDATE"],
+        "rxMessages": ["ACK_TP"],
+        "txMessages": ["PREDICTION_TP"],
         "policies": []
     }
 
