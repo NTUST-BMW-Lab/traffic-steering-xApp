@@ -32,7 +32,7 @@ class Training(object):
         self.combined_model = tf.keras.models.Model(inputs=combined_input, outputs=lstm_output)
         self.combined_model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
 
-    def train(self,epochs,batch_size,val_split):
+    def train(self,epochs=50,batch_size=32,val_split=0.2):
         self.get_data_from_DB()
         cleaner = Cleansing(self.df)
         cleaner.normalizer()

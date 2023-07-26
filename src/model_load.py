@@ -6,34 +6,26 @@ logger = Logger(name=__name__)
 
 
 class ModelLoad(object):
-    r""" Filter dataframe based on paramters that were used to train model
-    use transormer to transform the data
-    load model and predict the label(normal/anomalous)
+    r""" Load the model
 
     Parameters:
-    data:DataFrame
+    tfLite:bool
     """
 
-    def __init__(self, data=None, tfLite = True):
-        self.data = data
+    def __init__(self, tfLite = True):
         self.tfLite = tfLite
         self.load_model()
         self.load_scale()
-
-    def load_model_lite(self):
-        try:
-            # Load the TFLite model
-            self.tfLite = True
-            self.model = tf.lite.Interpreter(model_path='model.tflite')
-            self.model.allocate_tensors()
-        except FileNotFoundError:
-            logger.error("Model Does not exsist")
     
     def load_model(self):
         try:
-            # Load the TF model
-            self.tfLite = False
-            self.model = tf.keras.models.load_model('model.h5')
+            if self.tfLite:
+                self.tfLite = True
+                self.model = tf.lite.Interpreter(model_path='model.tflite')
+                self.model.allocate_tensors()
+            else:
+                self.tfLite = False
+                self.model = tf.keras.models.load_model('model.h5')
         except FileNotFoundError:
             logger.error("Model Does not exsist")
 
@@ -44,16 +36,16 @@ class ModelLoad(object):
         except FileNotFoundError:
             logger.error("Scale file does not exsist")
 
-    def predict(self, input):
+    def predict(self, inputs):
         pred = None
         if self.tfLite:
             input_details = self.model.get_input_details()
             output_details = self.model.get_output_details()
-            self.model.set_tensor(input_details[0]['index'], input)
+            self.model.set_tensor(input_details[0]['index'], inputs)
             self.model.invoke()
             pred = self.model.get_tensor(output_details[0]['index'])
         else:
-            pred = self.model.predict(input)
+            pred = self.model.predict(inputs)
         pred = self.scale.inverse_transform(pred)
         return pred
 

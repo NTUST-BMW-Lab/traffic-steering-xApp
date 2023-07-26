@@ -21,44 +21,47 @@ def entry(self):
     connectdb()
     train_model()
     load_model()
-    schedule.every(0.5).seconds.do(predict, self)
+    schedule.every(0.303).seconds.do(predict, self)
     while True:
         schedule.run_pending()
 
 
 def load_model():
     global md
-    md = ModelLoad()
+    md = ModelLoad(tfLite=False)
 
 def train_model():
     if not os.path.isfile('src/model.h5') or not os.path.isfile('src/model.5'):
-        mt = Training(db)
+        df = db.queries("|> range(start: -5h)")
+        mt = Training(df)
         mt.train()
         mt.model_saved()
 
 def predict(self):
-    db.read_data()
+    column_names = ['DRB_UEThpUl', 'Viavi_Nb1_Rsrp', 'Viavi_Nb1_Rsrq', 'Viavi_Nb2_Rsrp', 'Viavi_Nb2_Rsrq', 'Viavi_UE_Rsrp', 'Viavi_UE_Rsrq']
+    df = db.queries("|> range(start: -1s)")
     val = None
-    if db.data is not None:
-        if set(md.num).issubset(db.data.columns):
-            db.data = db.data.dropna(axis=0)
-        else:
-            logger.warning("Parameters does not match with of training data")
+    if len(df) > 0:
+        val = md.predict(df)
+        val = val[0]
+        result_send = dict()
+        for column in range(len(column_names)):
+            result_send[column_names[column]] = val[:,column]
+        result = json.loads(result_send.to_json(orient='records'))
+        val = json.dumps(result).encode()
     else:
         logger.warning("No data in last 1 second")
         time.sleep(1)
-    if (val is not None) and (len(val) > 2):
+    if (val is not None) and (len(val) > 0):
         msg_to_xapp(self, val)
 
 def msg_to_xapp(self, val):
-    # send message from ad to ts
-    logger.debug("Sending Anomalous UE to TS")
+    logger.debug("Sending to Slicing Network xApp")
     success = self.rmr_send(val, 30003)
     if success:
-        logger.info(" Message to TS: message sent Successfully")
-    # rmr receive to get the acknowledgement message from the traffic steering.
+        logger.info("Message to Slicing Network xApp: message sent Successfully")
     for (summary, sbuf) in self.rmr_get_messages():
-        logger.info("Received acknowldgement from TS (TS_ANOMALY_ACK): {}".format(summary))
+        logger.info("Received acknowldgement from SLICING NETWORK xAPP: {}".format(summary))
         self.rmr_free(sbuf)
 
 
@@ -68,9 +71,6 @@ def connectdb(thread=False):
     success = False
     while not success:
         success = db.connect()
-        db = Database()
-        db.connect()
-        df = db.queries("|> range(start: -1s)")
 
 
 def start(thread=False):
