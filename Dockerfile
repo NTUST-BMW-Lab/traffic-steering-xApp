@@ -1,13 +1,12 @@
-FROM frolvlad/alpine-miniconda3:python3.7
+FROM python:3.8-alpine
+
+# copy rmr libraries from builder image in lieu of an Alpine package
+COPY --from=nexus3.o-ran-sc.org:10002/o-ran-sc/bldr-alpine3-rmr:4.6.0 /usr/local/lib64/librmr* /usr/local/lib64/
+
 # RMR setup
 RUN mkdir -p /opt/route/
-
-# copy rmr files from builder image in lieu of an Alpine package
-COPY --from=nexus3.o-ran-sc.org:10002/o-ran-sc/bldr-alpine3-rmr:4.0.5 /usr/local/lib64/librmr* /usr/local/lib64/
-
-COPY --from=nexus3.o-ran-sc.org:10002/o-ran-sc/bldr-alpine3-rmr:4.0.5 /usr/local/bin/rmr* /usr/local/bin/
-ENV LD_LIBRARY_PATH /usr/local/lib/:/usr/local/lib64
 COPY local.rt /opt/route/local.rt
+ENV LD_LIBRARY_PATH /usr/local/lib/:/usr/local/lib64
 ENV RMR_SEED_RT /opt/route/local.rt
 
 RUN apk update && apk add gcc musl-dev

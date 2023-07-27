@@ -33,10 +33,9 @@ class Training(object):
         self.combined_model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
 
     def train(self,epochs=50,batch_size=32,val_split=0.2):
-        self.get_data_from_DB()
-        cleaner = Cleansing(self.df)
+        cleaner = Cleansing(self.df,10)
         cleaner.normalizer()
-        input_train, output_train = cleaner.create_sequences(self.df.values)
+        input_train, output_train = cleaner.create_sequences()
         self.create_model_forecasting()
         self.combined_model.fit(input_train, output_train, epochs=epochs, batch_size=batch_size, validation_split=val_split)
     

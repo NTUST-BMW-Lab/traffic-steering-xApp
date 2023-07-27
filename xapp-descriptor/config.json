@@ -1,22 +1,48 @@
 {
-    "xapp_name": "tp_xapp",
+    "name": "tp-xapp",
     "version": "1.0.0",
     "containers": [
         {
-            "name": "tp",
+            "name": "tp-xapp",
             "image": {
+                "registry": "edgeapps-docker-local.artifactory-blr1.int.net.bmwlab.com",
+                "name": "tp-xapp",
                 "tag": "1.0.0"
+            },
+            "resources": {
+                "limits": {},
+                "requests": {}
             }
         }
     ],
+    "livenessProbe": {
+        "httpGet": {
+            "path": "ric/v1/health/alive",
+            "port": 8080
+        },
+        "initialDelaySeconds": 5,
+        "periodSeconds": 15
+    },
+    "readinessProbe": {
+        "httpGet": {
+            "path": "ric/v1/health/ready",
+            "port": 8080
+        },
+        "initialDelaySeconds": 5,
+        "periodSeconds": 15
+    },
     "messaging": {
         "ports": [
             {
                 "name": "rmr-data",
                 "container": "tp",
                 "port": 4560,
-                "txMessages": ["PREDICTION_TP"],
-                "rxMessages": ["ACK_TP"],
+                "txMessages": [
+                    "PREDICTION_TP"
+                ],
+                "rxMessages": [
+                    "ACK_TP"
+                ],
                 "policies": [],
                 "description": "rmr receive data port for tp"
             },
@@ -32,10 +58,12 @@
         "protPort": "tcp:4560",
         "maxSize": 2072,
         "numWorkers": 1,
-        "rxMessages": ["ACK_TP"],
-        "txMessages": ["PREDICTION_TP"],
+        "rxMessages": [
+            "ACK_TP"
+        ],
+        "txMessages": [
+            "PREDICTION_TP"
+        ],
         "policies": []
     }
-
 }
-

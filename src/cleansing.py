@@ -4,8 +4,16 @@ import numpy as np
 import joblib
 
 class Cleansing(object):
-    def __init__(self, df):
+    r""" Clean the data
+    
+    Parameters
+    ----------
+    df: DataFrame (default = None)
+    lookback: int (default = 10)
+    """
+    def __init__(self, df = None, lookback = 10):
       self.df = df
+      self.lookback = lookback
 
     def change_to_field(self):
         unique_field = self.df['_field'].unique()
@@ -25,11 +33,11 @@ class Cleansing(object):
         joblib.dump(scaler_saved, 'src/scale')
         self.df[column_df_analytics] = scaler.transform(self.df[column_df_analytics])
 
-    def create_sequences(self, data, lookback):
-        samples = len(data) - lookback + 1
-        input_data = np.zeros((samples, lookback, 7, 1, 1))
+    def create_sequences(self):
+        samples = len(self.df.values) - self.lookback + 1
+        input_data = np.zeros((samples, self.lookback, 7, 1, 1))
         output_data = np.zeros((samples, 7))
         for i in range(samples):
-            input_data[i] = data[i:i+lookback].reshape((lookback, 7, 1, 1))
-            output_data[i] = data[i+lookback-1]
+            input_data[i] = self.df.values[i:i+self.lookback].reshape((self.lookback, 7, 1, 1))
+            output_data[i] = self.df.values[i+self.lookback-1]
         return input_data,output_data

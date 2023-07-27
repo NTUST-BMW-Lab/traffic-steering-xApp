@@ -9,19 +9,17 @@ import pandas as pd
 
 logger = Logger(name=__name__)
 
-'''
-get_field
-get_measurement
-get_start
-get_stop
-get_time
-get_value
-row
-table
-values
-'''
-
 class Database(object):
+    r"""
+    Fetch the data from InfluxDB. InfluxDB has method get_field, get_measurement, get_start, get_stop, get_time, and get_value
+
+    Parameters
+    ----------
+    url: String
+    token: String
+    org: String
+    bucket: String
+    """
     def __init__(self, url='', token='', org='', bucket='kpimon'):
         self.url = url
         self.token = token

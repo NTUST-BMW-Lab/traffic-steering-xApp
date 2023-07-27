@@ -57,7 +57,7 @@ def predict(self):
 
 def msg_to_xapp(self, val):
     logger.debug("Sending to Slicing Network xApp")
-    success = self.rmr_send(val, 30003)
+    success = self.rmr_send(val, 80901)
     if success:
         logger.info("Message to Slicing Network xApp: message sent Successfully")
     for (summary, sbuf) in self.rmr_get_messages():
