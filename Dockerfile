@@ -19,5 +19,5 @@ RUN pip install /tmp
 RUN pip install ricxappframe
 RUN pip install --force-reinstall redis==3.0.1
 ENV PYTHONUNBUFFERED 1
-COPY src/ /src
-CMD PYTHONPATH=/src:/usr/lib/python3.7/site-packages/:$PYTHONPATH run-src.py
+# COPY src/ /src
+# CMD PYTHONPATH=/src:/usr/lib/python3.7/site-packages/:$PYTHONPATH run-src.py

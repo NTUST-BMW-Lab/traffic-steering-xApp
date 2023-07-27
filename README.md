@@ -152,11 +152,10 @@ class Database(object):
         self.config()
 ```
 Parameters:
-1. `url` (String, required)
-2. `token` (String, required)
-3. `org` (String, required)
-4. `bucket` (String, required)
-5. `client` (String, required)
+1. `url` (String, required) : The url of database
+2. `token` (String, required) : The token of influxDB
+3. `org` (String, required) : The org that want to fetch
+4. `bucket` (String, required) : The bucket that want to fetch
 
 
 
