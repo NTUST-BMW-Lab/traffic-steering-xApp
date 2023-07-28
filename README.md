@@ -1,4 +1,4 @@
-# Traffic Prediction xAppp
+# Traffic Prediction xApp
 
 
 
@@ -8,20 +8,20 @@ Traffic-Prediction-xApp
 |__ src # The source code of xApp do
 |   |__ cleansing.py # Make the data more trainable by cleansing it in scaler and create the sequences for training
 |   |__ database.py # Connecting to the database (InfluxDB) fro  
-|   |__ exceptions.py
-|   |__ main.py
-|   |__ model_load.py
-|   |__ training.py
+|   |__ exceptions.py # Exception When The Code Not Execution Properly
+|   |__ main.py # Main File To Execution the xApp
+|   |__ model_load.py # Load the model that already exist
+|   |__ training.py # Train the model if the model isn't already exist
 |__ xapp-descriptor
-|   |__ config.json
-|__ container-tag.yaml
-|__ Dockerfile
-|__ INFO.yaml
-|__ LICENSE
-|__ local.rt
-|__ rmr-version.yaml
-|__ setup.py
-|__ tox.ini
+|   |__ config.json # Configuration file for description of xApp
+|__ container-tag.yaml # Version Container
+|__ Dockerfile # DockerFile for running the xApp in container image of xApp
+|__ INFO.yaml # Information of the code
+|__ LICENSE # License of the code
+|__ local.rt # Set the message type that will be used as RMR seed
+|__ rmr-version.yaml # Set the RMR version
+|__ setup.py # Setup the xApp as Python Image and set library that necessary
+|__ tox.ini # Description of xApp Package
 ```
 
 
