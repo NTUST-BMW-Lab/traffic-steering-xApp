@@ -10,7 +10,7 @@ class Training(object):
     def __init__(self,df):
         self.df = df
 
-    def create_model_forecasting(self,time_steps=30,optimizer='adam',loss='mean_squared_error'):
+    def create_model_forecasting(self,time_steps=10,optimizer='adam',loss='mean_squared_error'):
         model_3dcnn = tf.keras.Sequential([
             tf.keras.layers.Conv3D(filters=32, kernel_size=(3, 3, 3), activation='relu', input_shape=(time_steps, 7, 1, 1), padding='same'),
             tf.keras.layers.MaxPooling3D(pool_size=(2, 2, 2), strides=(1, 1, 1), padding='same'),
@@ -21,10 +21,11 @@ class Training(object):
         lstm_input_shape = model_3dcnn.output_shape[1:]
         lstm_model = tf.keras.Sequential([
             tf.keras.layers.Reshape((time_steps, -1)),
-            tf.keras.layers.LSTM(256, activation='relu', input_shape=lstm_input_shape),
+            tf.keras.layers.LSTM(256, activation='relu', input_shape=lstm_input_shape, return_sequences = True),
+            tf.keras.layers.LSTM(128, activation='relu'),
             tf.keras.layers.Dense(64, activation='relu'),
-            tf.keras.layers.Dense(32, activation='relu'),
-            tf.keras.layers.Dense(7, activation='linear')
+            tf.keras.layers.Dense(time_steps * 7, activation='linear'),
+            tf.keras.layers.Reshape((time_steps, 7))
         ])
         combined_input = tf.keras.layers.Input(shape=(time_steps, 7, 1, 1))
         cnn_output = model_3dcnn(combined_input)

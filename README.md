@@ -7,7 +7,7 @@
 Traffic-Prediction-xApp
 |__ src # The source code of xApp do
 |   |__ cleansing.py # Make the data more trainable by cleansing it in scaler and create the sequences for training
-|   |__ database.py # Connecting to the database (InfluxDB) fro  
+|   |__ database.py # Connecting to the database (InfluxDB) 
 |   |__ exceptions.py # Exception When The Code Not Execution Properly
 |   |__ main.py # Main File To Execution the xApp
 |   |__ model_load.py # Load the model that already exist
@@ -36,11 +36,25 @@ Traffic-Prediction-xApp
 - MDCLogpy
 - InfluxDB
 - Scikit-Learn
-- Schedule
+- Kubernets version v1.16.15
 
 
+## C. Running The xApp and Deploy it into local K8S
+### Running in Docker
+```bash
+docker build -t tp_xapps:latest -f  Dockerfile .
+docker run -i --net=host tp_xapps:latest
+```
+### xApp Deployment
+```bash
+docker build -t tp_xapps:latest -f  Dockerfile .
+export CHART_REPO_URL=http://0.0.0.0:8080
+dms_cli onboard ./config/config.json
+dms_cli install tp_xapps 1.0.0 ricxapp
+```
 
-## C. Data Cleansing
+
+## D. Data Cleansing
 Not all the data can be directly trained in any model of intelligence control. They should be cleaned first before utilize as reference data.
 ```python
 class Cleansing(object):
@@ -60,9 +74,9 @@ input_train, output_train = cleaner.create_sequences()
 
 
 
-## D. Model Load and Training
+## E. Model Load and Training
 Load model and training are two different classes. The load model Class loads an existing model, but Training perfroms training to generate a model
-### D.1 Model Load
+### E.1 Model Load
 Besides of load the model, This class also predict the data from the own methods
 ```python
 class ModelLoad(object):
@@ -88,7 +102,7 @@ Other parameters:
 md = ModelLoad(tfLite=False)
 prediction = md.predict(DataFrame)
 ```
-### D.2 Model Training
+### E.2 Model Training
 ```python
 class Training(object):
     r""" Training the model
@@ -129,7 +143,7 @@ combined_model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
 The model utilize the 3D-CNN-LSTM because the data itself that from many base station and gather together in one data. The base station represent each matrix that could be visualize as big matrix in one data. Thus, to make matrix represents each base, it converts to 3D matrix. The best methods to predict is using the 3D-CNN. Afterthat, LSTM helps to predict future steps ahed of what base station output next.
 
 
-## E. Database (InfluxDB)
+## F. Database (InfluxDB)
 Data that stored in database from UE fetch via InfluxDB.
 ```python
 class Database(object):
@@ -157,11 +171,3 @@ Parameters:
 3. `org` (String, required) : The org that want to fetch
 4. `bucket` (String, required) : The bucket that want to fetch
 
-
-
-## F. Running The xApp and Deploy it into local K8S
-# Running in Docker
-```bash
-docker build -t tp_xapps:latest -f  Dockerfile .
-docker run -i --net=host tp_xapps:latest
-```

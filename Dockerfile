@@ -9,15 +9,16 @@ COPY local.rt /opt/route/local.rt
 ENV LD_LIBRARY_PATH /usr/local/lib/:/usr/local/lib64
 ENV RMR_SEED_RT /opt/route/local.rt
 
-RUN apk update && apk add gcc musl-dev
+RUN apk update && apk add gcc musl-dev bash
 
 # Install
 COPY setup.py /tmp
-COPY LICENSE.txt /tmp/
+COPY LICENSE /tmp/
 # RUN mkdir -p /tmp/ad/
 RUN pip install /tmp
 RUN pip install ricxappframe
+# RUN pip install tensorflow
 RUN pip install --force-reinstall redis==3.0.1
 ENV PYTHONUNBUFFERED 1
-# COPY src/ /src
-# CMD PYTHONPATH=/src:/usr/lib/python3.7/site-packages/:$PYTHONPATH run-src.py
+COPY src/ /src
+CMD PYTHONPATH=/src:/usr/lib/python3.7/site-packages/:$PYTHONPATH run-src.py
