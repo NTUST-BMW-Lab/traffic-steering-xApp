@@ -3,12 +3,12 @@ import os
 import time
 import pandas as pd
 import schedule
-from ricxappframe.xapp_frame import Xapp
-from ricxappframe.xapp_sdl import SDLWrapper
 from mdclogpy import Logger
 from training import Training
 from database import Database
 from model_load import ModelLoad
+from ricxappframe.xapp_sdl import SDLWrapper
+from ricxappframe.xapp_frame import Xapp
 
 db = None
 df = None
@@ -21,27 +21,32 @@ def entry(self):
     connectdb()
     train_model()
     load_model()
-    schedule.every(0.303).seconds.do(predict, self)
+    schedule.every(1).seconds.do(predict, self)
     while True:
         schedule.run_pending()
 
 
 def load_model():
     global md
+    logger.info("Load the Model")
     md = ModelLoad(tfLite=False)
 
 def train_model():
-    if not os.path.isfile('src/model.h5') or not os.path.isfile('src/model.5'):
+    if not os.path.exists(os.getcwd()+'/src/model.h5') and not os.path.exists(os.getcwd()+'/src/model.tflite'):
+        logger.info("Start Training The Model")
         df = db.queries("|> range(start: -5h)")
-        mt = Training(df)
-        mt.train()
-        mt.model_saved()
+        if len(df) == 0:
+            logger.info("No Data in Database")
+        else:
+            mt = Training(df)
+            mt.train()
+            mt.model_saved()
 
 def predict(self):
     column_names = ['DRB_UEThpUl', 'Viavi_Nb1_Rsrp', 'Viavi_Nb1_Rsrq', 'Viavi_Nb2_Rsrp', 'Viavi_Nb2_Rsrq', 'Viavi_UE_Rsrp', 'Viavi_UE_Rsrq']
     df = db.queries("|> range(start: -1s)")
     val = None
-    if len(df) > 0:
+    if len(df) > 0 and df is not None:
         val = md.predict(df)
         val = val[0]
         result_send = dict()

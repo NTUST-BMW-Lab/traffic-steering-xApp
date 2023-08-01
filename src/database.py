@@ -20,7 +20,7 @@ class Database(object):
     org: String
     bucket: String
     """
-    def __init__(self, url='', token='', org='', bucket='kpimon'):
+    def __init__(self, url='', token='', org='', bucket=''):
         self.url = url
         self.token = token
         self.org = org
@@ -29,9 +29,12 @@ class Database(object):
         self.config()
 
     def connect(self):
+        self.config()
+        if self.client is not None:
+            self.client.close()
         try:
             self.client = InfluxDBClient(url=self.url, token=self.token, org=self.org)
-            logger.info("Conected to Influx Database")
+            logger.info("Connected to Influx Database")
             return True
         except ApiException as e:
             logger.error(f"Error connecting to InfluxDB server: {e}")
@@ -44,26 +47,31 @@ class Database(object):
         if self.client is not None:
             self.client.close()
 
-    def queries(self,param):
+    def queries(self,params):
         '''
         Param 
         Example |> range(start: -1m)
         '''
-        column_names = ['DRB_UEThpUl', 'Viavi_Nb1_Rsrp', 'Viavi_Nb1_Rsrq', 'Viavi_Nb2_Rsrp', 'Viavi_Nb2_Rsrq', 'Viavi_UE_Rsrp', 'Viavi_UE_Rsrq']
-        value_result = dict()
-        for column in column_names:
-            value_result[column] = []
-        query = f'from(bucket: "{self.bucket}") {param}'
-        tables = self.client.query_api().query(query, org=self.org)
-        for table in tables:
-            for record in table.records:
-                if record.get_measurement() == 'UeMetrics' and record.get_field() in column_names:
-                    value_result[record.get_field()].append(record.get_value())
-        return pd.DataFrame(value_result)
+        try:
+            column_names = ['DRB_UEThpUl', 'Viavi_Nb1_Rsrp', 'Viavi_Nb1_Rsrq', 'Viavi_Nb2_Rsrp', 'Viavi_Nb2_Rsrq', 'Viavi_UE_Rsrp', 'Viavi_UE_Rsrq']
+            value_result = dict()
+            for column in column_names:
+                value_result[column] = []
+            queriese = f'from(bucket: {self.bucket}) {params}'
+            tables = self.client.query_api().query(queriese, org=self.org)
+            if len(tables) > 0:
+                for table in tables:
+                    for record in table.records:
+                        if record.get_measurement() == 'UeMetrics' and record.get_field() in column_names:
+                            value_result[record.get_field()].append(record.get_value())
+            return pd.DataFrame(value_result)
+        except Exception as e:
+            logger.error(f"An error occurred: {e}")
+            return None
 
     def config(self):
         cfg = ConfigParser()
-        cfg.read('tf_config.ini')
+        cfg.read('./src/tf_config.ini')
         for section in cfg.sections():
             if section == 'InfluxDB':
                 self.url = cfg.get(section, "url")
@@ -71,9 +79,8 @@ class Database(object):
                 self.org = cfg.get(section, "org")
                 self.bucket = cfg.get(section, "bucket")
 
-if __name__ == "__main__":
-    db = Database()
-    db.connect()
-    res = db.queries("|> range(start: -1s)")
-    print(res)
-    db.disconnect()
+# if __name__ == "__main__":
+#     db = Database()
+#     db.connect()
+#     res = db.queries(params="|> range(start: -0.3s)")
+#     db.disconnect()

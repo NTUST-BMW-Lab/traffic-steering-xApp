@@ -22,17 +22,17 @@ class ModelLoad(object):
         try:
             if self.tfLite:
                 self.tfLite = True
-                self.model = tf.lite.Interpreter(model_path='model.tflite')
+                self.model = tf.lite.Interpreter(model_path='./src/model.tflite')
                 self.model.allocate_tensors()
             else:
                 self.tfLite = False
-                self.model = tf.keras.models.load_model('model.h5')
+                self.model = tf.keras.models.load_model('./src/model.h5')
         except FileNotFoundError:
             logger.error("Model Does not exsist")
 
     def load_scale(self):
         try:
-            with open('src/scale', 'rb') as f:
+            with open('./src/scale', 'rb') as f:
                 self.scale = joblib.load(f)
         except FileNotFoundError:
             logger.error("Scale file does not exsist")

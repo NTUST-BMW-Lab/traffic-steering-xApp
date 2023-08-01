@@ -27,6 +27,7 @@ Traffic-Prediction-xApp
 
 
 ## B. Requirements
+### B.1 Python Library
 - Python 3.x
 - NumPy
 - Pandas
@@ -36,7 +37,10 @@ Traffic-Prediction-xApp
 - MDCLogpy
 - InfluxDB
 - Scikit-Learn
-- Kubernets version v1.16.15
+### B.2 Image and Container
+- KUBEV v1.16.0
+- HELMV 3.5.4
+- DOCKERV 20.10.21
 
 
 ## C. Running The xApp and Deploy it into local K8S
