@@ -3,10 +3,10 @@
     "version": "1.0.0",
     "containers": [
         {
-            "name": "tp_xapps",
+            "name": "tp-xapp",
             "image": {
-                "registry": "localhost",
-                "name": "tp_xapps",
+                "registry": "127.0.0.1",
+                "name": "tp-xapp",
                 "tag": "latest"
             },
             "resources": {

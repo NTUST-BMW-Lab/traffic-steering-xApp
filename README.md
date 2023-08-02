@@ -46,15 +46,15 @@ Traffic-Prediction-xApp
 ## C. Running The xApp and Deploy it into local K8S
 ### Running in Docker
 ```bash
-docker build -t tp_xapps:latest -f  Dockerfile .
-docker run -i --net=host tp_xapps:latest
+docker build -t tp-xapp:latest -f  Dockerfile .
+docker run -i --net=host tp-xapp:latest
 ```
 ### xApp Deployment
 ```bash
-docker build -t tp_xapps:latest -f  Dockerfile .
+docker build -t tp-xapp:latest -f  Dockerfile .
 export CHART_REPO_URL=http://0.0.0.0:8090
 dms_cli onboard --config_file_path=./xapp-descriptor/config.json
-dms_cli install tp_xapps 1.0.0 ricxapp
+dms_cli install tp-xapp 1.0.0 ricxapp
 ```
 
 

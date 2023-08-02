@@ -1,6 +1,11 @@
 # Use Ubuntu as the base image
 FROM ubuntu:20.04
 
+# Set the desired hostname
+ARG HOSTNAME=127.0.0.1
+RUN echo "$HOSTNAME" > /etc/hostname
+
+
 # Install required dependencies (Python, pip, gcc, musl-dev, bash)
 RUN apt-get update && apt-get install -y python3 python3-pip gcc musl-dev bash
 RUN ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1
