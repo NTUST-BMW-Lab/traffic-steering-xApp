@@ -3,11 +3,10 @@
     "version": "1.0.0",
     "containers": [
         {
-            "name": "tp-xapp",
+            "name": "tp_xapps",
             "image": {
-                "registry": "nexus3.o-ran-sc.org:10002",
-                "name": "tp-xapp",
-                "tag": "1.0.0"
+                "name": "tp_xapps",
+                "tag": "latest"
             },
             "resources": {
                 "limits": {},
