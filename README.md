@@ -52,8 +52,8 @@ docker run -i --net=host tp_xapps:latest
 ### xApp Deployment
 ```bash
 docker build -t tp_xapps:latest -f  Dockerfile .
-export CHART_REPO_URL=http://0.0.0.0:8080
-dms_cli onboard ./config/config.json
+export CHART_REPO_URL=http://0.0.0.0:8090
+dms_cli onboard --config_file_path=./xapp-descriptor/config.json
 dms_cli install tp_xapps 1.0.0 ricxapp
 ```
 

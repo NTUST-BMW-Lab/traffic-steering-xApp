@@ -5,7 +5,7 @@
         {
             "name": "tp-xapp",
             "image": {
-                "registry": "edgeapps-docker-local.artifactory-blr1.int.net.bmwlab.com",
+                "registry": "nexus3.o-ran-sc.org:10002",
                 "name": "tp-xapp",
                 "tag": "1.0.0"
             },
