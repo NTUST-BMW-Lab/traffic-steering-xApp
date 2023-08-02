@@ -5,6 +5,7 @@
         {
             "name": "tp_xapps",
             "image": {
+                "registry": "localhost",
                 "name": "tp_xapps",
                 "tag": "latest"
             },

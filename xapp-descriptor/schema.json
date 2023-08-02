@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "#/controls",
     "type": "object",
-    "title": "The root schema",
+    "title": "Controls Section Schema",
     "description": "The root schema comprises the entire JSON document.",
     "default": {},
     "examples": [
