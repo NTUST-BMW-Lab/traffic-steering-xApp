@@ -4,14 +4,16 @@ import numpy as np
 import joblib
 
 class Cleansing(object):
-    r""" Clean the data
-    
-    Parameters
-    ----------
-    df: DataFrame (default = None)
-    lookback: int (default = 10)
+    r""" 
+    Clean the data
+    -------------
+
+    Parameters:
+        df: DataFrame (default = None)
+        lookback: int (default = 10)
     """
     def __init__(self, df = None, lookback = 10):
+      
       self.df = df
       self.lookback = lookback
 
