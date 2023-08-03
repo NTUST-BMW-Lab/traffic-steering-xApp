@@ -4,16 +4,20 @@ import numpy as np
 import joblib
 
 class Cleansing(object):
-    r""" 
-    Clean the data
-    -------------
-
-    Parameters:
-        df: DataFrame (default = None)
-        lookback: int (default = 10)
+    """Clean the data from DataFrame data type (Pandas Python Library). Besides
+        It also normalize the data and separate it from sequence that you want.
+        
+        Args:
+            df (DataFrame): An datasets that created by DataFrame by python library
+            lookback (int): An lookback data will separated by lookback sequences
     """
     def __init__(self, df = None, lookback = 10):
-      
+        """Initialize the Cleansing instance.
+        
+        Args:
+            df (DataFrame): An datasets that created by DataFrame by python library
+            lookback (int): An lookback data will separated by lookback sequences
+        """
       self.df = df
       self.lookback = lookback
 
