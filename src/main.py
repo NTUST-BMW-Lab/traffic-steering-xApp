@@ -18,6 +18,8 @@ logger = Logger(name=__name__)
 
 
 def entry(self):
+    """The entry file of running the xApp. This is the xApp general function will run. This function run every 1 second to predict and send it."""
+    
     connectdb()
     train_model()
     load_model()
@@ -27,11 +29,15 @@ def entry(self):
 
 
 def load_model():
+    """The model will be load if there model in ./src"""
+    
     global md
     logger.info("Load the Model")
     md = ModelLoad(tfLite=False)
 
 def train_model():
+    """The model that will be trained while the model doesn't exist in ./src file"""
+    
     if not os.path.exists(os.getcwd()+'/src/model.h5') and not os.path.exists(os.getcwd()+'/src/model.tflite'):
         logger.info("Start Training The Model")
         df = db.queries("|> range(start: -5h)")
@@ -43,6 +49,8 @@ def train_model():
             mt.model_saved()
 
 def predict(self):
+    """Prediction function from fetching last 1 second data and decode the prediction into JSON for sending it to network slicing xApp"""
+    
     column_names = ['DRB_UEThpUl', 'Viavi_Nb1_Rsrp', 'Viavi_Nb1_Rsrq', 'Viavi_Nb2_Rsrp', 'Viavi_Nb2_Rsrq', 'Viavi_UE_Rsrp', 'Viavi_UE_Rsrq']
     df = db.queries("|> range(start: -1s)")
     val = None
@@ -61,6 +69,8 @@ def predict(self):
         msg_to_xapp(self, val)
 
 def msg_to_xapp(self, val):
+    """Sending the database to Slicing Network xApp as 80911 message type in 30 data prediction ahead"""
+    
     logger.debug("Sending to Slicing Network xApp")
     success = self.rmr_send(val, 80901)
     if success:
@@ -71,6 +81,8 @@ def msg_to_xapp(self, val):
 
 
 def connectdb(thread=False):
+    """Connection to the database"""
+    
     global db, df
     db = Database()
     success = False
@@ -79,7 +91,8 @@ def connectdb(thread=False):
 
 
 def start(thread=False):
-    # Initiates xapp api and runs the entry() using xapp.run()
+    """Starting of xApp. xApp will execute this function. This Function initiates xApp API and runs the entry() using xapp.run()"""
+    
     xapp = Xapp(entrypoint=entry, rmr_port=4560, use_fake_sdl=False)
     xapp.logger.debug("Traffic Prediction xApp starting")
     xapp.run()
