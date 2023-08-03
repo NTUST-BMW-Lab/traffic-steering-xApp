@@ -22,6 +22,8 @@ class Cleansing(object):
       self.lookback = lookback
 
     def change_to_field(self):
+        """Change the data into the DataFrame that training want. It uses when use the offline data."""
+        
         unique_field = self.df['_field'].unique()
         field_idb = self.df.groupby('_field')
         dict_new_analytics = dict()
@@ -33,17 +35,21 @@ class Cleansing(object):
         return df_new_analytics
 
     def normalizer(self):
+        """Normalize the data into scale 0 to 1. The transform data are stored in /src directory. Use ./src/scale to restore the scaler"""
+        
         column_df_analytics = list(self.df.columns)
         scaler = MinMaxScaler(feature_range=(0, 1))
         scaler_saved = scaler.fit(self.df[column_df_analytics])
-        joblib.dump(scaler_saved, 'src/scale')
+        joblib.dump(scaler_saved, './src/scale')
         self.df[column_df_analytics] = scaler.transform(self.df[column_df_analytics])
 
     def create_sequences(self):
+        """Create the data into desire data need in the models (None,7,1,1) also the output (None,7) sequences"""
+        
         samples = len(self.df.values) - self.lookback + 1
         input_data = np.zeros((samples, self.lookback, 7, 1, 1))
-        output_data = np.zeros((samples, 7))
+        output_data = np.zeros((samples, time_steps, 7))
         for i in range(samples):
             input_data[i] = self.df.values[i:i+self.lookback].reshape((self.lookback, 7, 1, 1))
-            output_data[i] = self.df.values[i+self.lookback-1]
+            output_data[i] = output_features[i:i+time_steps].reshape((time_steps, 7))
         return input_data,output_data
