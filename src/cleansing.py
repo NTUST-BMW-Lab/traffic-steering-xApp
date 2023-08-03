@@ -11,7 +11,7 @@ class Cleansing(object):
             df (DataFrame): An datasets that created by DataFrame by python library
             lookback (int): An lookback data will separated by lookback sequences
     """
-    def __init__(self, df = None, lookback = 10):
+    def __init__(self, df = None, lookback = 30):
         """Initialize the Cleansing instance.
         
         Args:
