@@ -48,8 +48,8 @@ class Cleansing(object):
         
         samples = len(self.df.values) - self.lookback + 1
         input_data = np.zeros((samples, self.lookback, 7, 1, 1))
-        output_data = np.zeros((samples, time_steps, 7))
+        output_data = np.zeros((samples, self.lookback, 7))
         for i in range(samples):
             input_data[i] = self.df.values[i:i+self.lookback].reshape((self.lookback, 7, 1, 1))
-            output_data[i] = self.df.values[i:i+time_steps].reshape((time_steps, 7))
+            output_data[i] = self.df.values[i:i+self.lookback].reshape((self.lookback, 7))
         return input_data,output_data
