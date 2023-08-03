@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0036)http://localhost:46497/training.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Pydoc: module training</title>
+
+<link rel="stylesheet" type="text/css" href="./Pydoc_ module training_files/_pydoc.css"></head><body bgcolor="#f0f0f8">
+            <div style="float:left">
+                Python 3.8.10 [default, GCC 9.4.0]<br>Linux-5.15.0-78-generic-x86_64-with-glibc2.29
+            </div>
+            <div style="float:right">
+                <div style="text-align:center">
+                  <a href="http://localhost:46497/index.html">Module Index</a>
+                  : <a href="http://localhost:46497/topics.html">Topics</a>
+                  : <a href="http://localhost:46497/keywords.html">Keywords</a>
+                </div>
+                <div>
+                    <form action="http://localhost:46497/get" style="display:inline;">
+                      <input type="text" name="key" size="15">
+                      <input type="submit" value="Get">
+                    </form>&nbsp;
+                    <form action="http://localhost:46497/search" style="display:inline;">
+                      <input type="text" name="key" size="15">
+                      <input type="submit" value="Search">
+                    </form>
+                </div>
+            </div>
+            <div style="clear:both;padding-top:.5em;">
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="heading">
+<tbody><tr bgcolor="#7799ee">
+<td valign="bottom">&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>training</strong></big></big></font></td><td align="right" valign="bottom"><font color="#ffffff" face="helvetica, arial"><a href="http://localhost:46497/">index</a><br><a href="file:///home/bmwlab/TEEP2023/traffic-steering-xApps/src/training.py">/home/bmwlab/TEEP2023/traffic-steering-xApps/src/training.py</a></font></td></tr></tbody></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section">
+<tbody><tr bgcolor="#aa55cc">
+<td colspan="3" valign="bottom">&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tbody><tr><td width="25%" valign="top"><a href="http://localhost:46497/tensorflow.html">tensorflow</a><br>
+</td><td width="25%" valign="top"></td><td width="25%" valign="top"></td><td width="25%" valign="top"></td></tr></tbody></table></td></tr></tbody></table></p><p>
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section">
+<tbody><tr bgcolor="#ee77aa">
+<td colspan="3" valign="bottom">&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="http://localhost:46497/builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="http://localhost:46497/training.html#Training">Training</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section">
+<tbody><tr bgcolor="#ffc8d8">
+<td colspan="3" valign="bottom">&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Training">class <strong>Training</strong></a>(<a href="http://localhost:46497/builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan="2"><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2"><tt><a href="http://localhost:46497/training.html#Training">Training</a>(df)<br>
+&nbsp;<br>
+<a href="http://localhost:46497/training.html#Training">Training</a>&nbsp;the&nbsp;data&nbsp;if&nbsp;the&nbsp;model&nbsp;doesn't&nbsp;exist<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;df&nbsp;(DataFrame):&nbsp;An&nbsp;datasets&nbsp;that&nbsp;want&nbsp;to&nbsp;be&nbsp;train&nbsp;to&nbsp;outcome&nbsp;the&nbsp;model<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Training-__init__"><strong>__init__</strong></a>(self, df)</dt><dd><tt>Initialize&nbsp;the&nbsp;Cleansing&nbsp;instance.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;df&nbsp;(DataFrame):&nbsp;An&nbsp;datasets&nbsp;that&nbsp;want&nbsp;to&nbsp;be&nbsp;train&nbsp;to&nbsp;outcome&nbsp;the&nbsp;model</tt></dd></dl>
+
+<dl><dt><a name="Training-create_model_forecasting"><strong>create_model_forecasting</strong></a>(self, time_steps=30, optimizer='adam', loss='mean_squared_error')</dt><dd><tt>Create&nbsp;the&nbsp;model&nbsp;summary&nbsp;with&nbsp;3D-CNN-LSTM<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_steps&nbsp;(int):&nbsp;A&nbsp;lookback&nbsp;training&nbsp;from&nbsp;time_step&nbsp;before&nbsp;and&nbsp;predict&nbsp;time_step&nbsp;ahead.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;optimizers&nbsp;(String):&nbsp;An&nbsp;optimizer&nbsp;of&nbsp;the&nbsp;model.&nbsp;It&nbsp;effects&nbsp;to&nbsp;how&nbsp;fast&nbsp;the&nbsp;model&nbsp;is&nbsp;created&nbsp;(For&nbsp;Further&nbsp;Information&nbsp;what&nbsp;kind&nbsp;of&nbsp;opimizer,&nbsp;you&nbsp;can&nbsp;see&nbsp;the&nbsp;tensorflow&nbsp;websites)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;loss&nbsp;(String):&nbsp;A&nbsp;loss&nbsp;function.&nbsp;as&nbsp;machine&nbsp;learning&nbsp;or&nbsp;deep&nbsp;learning&nbsp;are&nbsp;fixed&nbsp;the&nbsp;model&nbsp;from&nbsp;loss,&nbsp;the&nbsp;loss&nbsp;function&nbsp;also&nbsp;determine&nbsp;how&nbsp;fast&nbsp;the&nbsp;model&nbsp;is&nbsp;created&nbsp;(For&nbsp;Further&nbsp;Information&nbsp;what&nbsp;kind&nbsp;of&nbsp;loss&nbsp;function,&nbsp;you&nbsp;can&nbsp;see&nbsp;the&nbsp;tensorflow&nbsp;websites)</tt></dd></dl>
+
+<dl><dt><a name="Training-model_saved"><strong>model_saved</strong></a>(self)</dt><dd><tt>Saved&nbsp;the&nbsp;model&nbsp;into&nbsp;.h5&nbsp;(.tf)&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="Training-model_saved_lite"><strong>model_saved_lite</strong></a>(self)</dt><dd><tt>Saved&nbsp;the&nbsp;model&nbsp;into&nbsp;.tflite&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="Training-train"><strong>train</strong></a>(self, epochs=50, batch_size=32, val_split=0.2)</dt><dd><tt>Train&nbsp;of&nbsp;the&nbsp;model&nbsp;that&nbsp;has&nbsp;been&nbsp;created&nbsp;from&nbsp;<a href="http://localhost:46497/training.html#Training-create_model_forecasting">create_model_forecasting</a>()<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;epochs&nbsp;(int):&nbsp;How&nbsp;many&nbsp;epochs&nbsp;train,&nbsp;it&nbsp;effets&nbsp;to&nbsp;how&nbsp;fast&nbsp;data&nbsp;will&nbsp;produce<br>
+&nbsp;&nbsp;&nbsp;&nbsp;batch_size&nbsp;(int):&nbsp;A&nbsp;number&nbsp;of&nbsp;samples&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;in&nbsp;a&nbsp;single&nbsp;iteration&nbsp;(forward&nbsp;and&nbsp;backward&nbsp;pass)&nbsp;of&nbsp;training&nbsp;in&nbsp;a&nbsp;machine&nbsp;learning&nbsp;algorithm,&nbsp;particularly&nbsp;in&nbsp;deep&nbsp;learning&nbsp;models&nbsp;like&nbsp;neural&nbsp;networks.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;val_split&nbsp;(float):&nbsp;A&nbsp;validation&nbsp;split&nbsp;in&nbsp;the&nbsp;context&nbsp;of&nbsp;training&nbsp;a&nbsp;machine&nbsp;learning&nbsp;or&nbsp;deep&nbsp;learning&nbsp;model.&nbsp;During&nbsp;the&nbsp;training&nbsp;process,&nbsp;it's&nbsp;common&nbsp;to&nbsp;split&nbsp;your&nbsp;available&nbsp;labeled&nbsp;data&nbsp;into&nbsp;three&nbsp;main&nbsp;subsets:&nbsp;the&nbsp;training&nbsp;set,&nbsp;the&nbsp;validation&nbsp;set,&nbsp;and&nbsp;the&nbsp;test&nbsp;set.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></tbody></table></p></td></tr></tbody></table></p></div>
+</body></html>

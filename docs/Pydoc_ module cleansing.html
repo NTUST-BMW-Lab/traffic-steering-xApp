@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0037)http://localhost:46497/cleansing.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Pydoc: module cleansing</title>
+
+<link rel="stylesheet" type="text/css" href="./Pydoc_ module cleansing_files/_pydoc.css"></head><body bgcolor="#f0f0f8">
+            <div style="float:left">
+                Python 3.8.10 [default, GCC 9.4.0]<br>Linux-5.15.0-78-generic-x86_64-with-glibc2.29
+            </div>
+            <div style="float:right">
+                <div style="text-align:center">
+                  <a href="http://localhost:46497/index.html">Module Index</a>
+                  : <a href="http://localhost:46497/topics.html">Topics</a>
+                  : <a href="http://localhost:46497/keywords.html">Keywords</a>
+                </div>
+                <div>
+                    <form action="http://localhost:46497/get" style="display:inline;">
+                      <input type="text" name="key" size="15">
+                      <input type="submit" value="Get">
+                    </form>&nbsp;
+                    <form action="http://localhost:46497/search" style="display:inline;">
+                      <input type="text" name="key" size="15">
+                      <input type="submit" value="Search">
+                    </form>
+                </div>
+            </div>
+            <div style="clear:both;padding-top:.5em;">
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="heading">
+<tbody><tr bgcolor="#7799ee">
+<td valign="bottom">&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>cleansing</strong></big></big></font></td><td align="right" valign="bottom"><font color="#ffffff" face="helvetica, arial"><a href="http://localhost:46497/">index</a><br><a href="file:///home/bmwlab/TEEP2023/traffic-steering-xApps/src/cleansing.py">/home/bmwlab/TEEP2023/traffic-steering-xApps/src/cleansing.py</a></font></td></tr></tbody></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section">
+<tbody><tr bgcolor="#aa55cc">
+<td colspan="3" valign="bottom">&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tbody><tr><td width="25%" valign="top"><a href="http://localhost:46497/joblib.html">joblib</a><br>
+</td><td width="25%" valign="top"><a href="http://localhost:46497/numpy.html">numpy</a><br>
+</td><td width="25%" valign="top"><a href="http://localhost:46497/pandas.html">pandas</a><br>
+</td><td width="25%" valign="top"></td></tr></tbody></table></td></tr></tbody></table></p><p>
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section">
+<tbody><tr bgcolor="#ee77aa">
+<td colspan="3" valign="bottom">&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="http://localhost:46497/builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="http://localhost:46497/cleansing.html#Cleansing">Cleansing</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section">
+<tbody><tr bgcolor="#ffc8d8">
+<td colspan="3" valign="bottom">&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Cleansing">class <strong>Cleansing</strong></a>(<a href="http://localhost:46497/builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan="2"><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2"><tt><a href="http://localhost:46497/cleansing.html#Cleansing">Cleansing</a>(df=None,&nbsp;lookback=30)<br>
+&nbsp;<br>
+Clean&nbsp;the&nbsp;data&nbsp;from&nbsp;DataFrame&nbsp;data&nbsp;type&nbsp;(Pandas&nbsp;Python&nbsp;Library).&nbsp;Besides<br>
+It&nbsp;also&nbsp;normalize&nbsp;the&nbsp;data&nbsp;and&nbsp;separate&nbsp;it&nbsp;from&nbsp;sequence&nbsp;that&nbsp;you&nbsp;want.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;df&nbsp;(DataFrame):&nbsp;An&nbsp;datasets&nbsp;that&nbsp;created&nbsp;by&nbsp;DataFrame&nbsp;by&nbsp;python&nbsp;library<br>
+&nbsp;&nbsp;&nbsp;&nbsp;lookback&nbsp;(int):&nbsp;An&nbsp;lookback&nbsp;data&nbsp;will&nbsp;separated&nbsp;by&nbsp;lookback&nbsp;sequences<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Cleansing-__init__"><strong>__init__</strong></a>(self, df=None, lookback=30)</dt><dd><tt>Initialize&nbsp;the&nbsp;<a href="http://localhost:46497/cleansing.html#Cleansing">Cleansing</a>&nbsp;instance.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;df&nbsp;(DataFrame):&nbsp;An&nbsp;datasets&nbsp;that&nbsp;created&nbsp;by&nbsp;DataFrame&nbsp;by&nbsp;python&nbsp;library<br>
+&nbsp;&nbsp;&nbsp;&nbsp;lookback&nbsp;(int):&nbsp;An&nbsp;lookback&nbsp;data&nbsp;will&nbsp;separated&nbsp;by&nbsp;lookback&nbsp;sequences</tt></dd></dl>
+
+<dl><dt><a name="Cleansing-change_to_field"><strong>change_to_field</strong></a>(self)</dt><dd><tt>Change&nbsp;the&nbsp;data&nbsp;into&nbsp;the&nbsp;DataFrame&nbsp;that&nbsp;training&nbsp;want.&nbsp;It&nbsp;uses&nbsp;when&nbsp;use&nbsp;the&nbsp;offline&nbsp;data.</tt></dd></dl>
+
+<dl><dt><a name="Cleansing-create_sequences"><strong>create_sequences</strong></a>(self)</dt><dd><tt>Create&nbsp;the&nbsp;data&nbsp;into&nbsp;desire&nbsp;data&nbsp;need&nbsp;in&nbsp;the&nbsp;models&nbsp;(None,7,1,1)&nbsp;also&nbsp;the&nbsp;output&nbsp;(None,7)&nbsp;sequences</tt></dd></dl>
+
+<dl><dt><a name="Cleansing-normalizer"><strong>normalizer</strong></a>(self)</dt><dd><tt>Normalize&nbsp;the&nbsp;data&nbsp;into&nbsp;scale&nbsp;0&nbsp;to&nbsp;1.&nbsp;The&nbsp;transform&nbsp;data&nbsp;are&nbsp;stored&nbsp;in&nbsp;/src&nbsp;directory.&nbsp;Use&nbsp;./src/scale&nbsp;to&nbsp;restore&nbsp;the&nbsp;scaler</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></tbody></table></p></td></tr></tbody></table></p></div>
+</body></html>

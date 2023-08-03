@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0038)http://localhost:46497/model_load.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Pydoc: module model_load</title>
+
+<link rel="stylesheet" type="text/css" href="./Pydoc_ module model_load_files/_pydoc.css"></head><body bgcolor="#f0f0f8">
+            <div style="float:left">
+                Python 3.8.10 [default, GCC 9.4.0]<br>Linux-5.15.0-78-generic-x86_64-with-glibc2.29
+            </div>
+            <div style="float:right">
+                <div style="text-align:center">
+                  <a href="http://localhost:46497/index.html">Module Index</a>
+                  : <a href="http://localhost:46497/topics.html">Topics</a>
+                  : <a href="http://localhost:46497/keywords.html">Keywords</a>
+                </div>
+                <div>
+                    <form action="http://localhost:46497/get" style="display:inline;">
+                      <input type="text" name="key" size="15">
+                      <input type="submit" value="Get">
+                    </form>&nbsp;
+                    <form action="http://localhost:46497/search" style="display:inline;">
+                      <input type="text" name="key" size="15">
+                      <input type="submit" value="Search">
+                    </form>
+                </div>
+            </div>
+            <div style="clear:both;padding-top:.5em;">
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="heading">
+<tbody><tr bgcolor="#7799ee">
+<td valign="bottom">&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>model_load</strong></big></big></font></td><td align="right" valign="bottom"><font color="#ffffff" face="helvetica, arial"><a href="http://localhost:46497/">index</a><br><a href="file:///home/bmwlab/TEEP2023/traffic-steering-xApps/src/model_load.py">/home/bmwlab/TEEP2023/traffic-steering-xApps/src/model_load.py</a></font></td></tr></tbody></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section">
+<tbody><tr bgcolor="#aa55cc">
+<td colspan="3" valign="bottom">&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tbody><tr><td width="25%" valign="top"><a href="http://localhost:46497/joblib.html">joblib</a><br>
+</td><td width="25%" valign="top"><a href="http://localhost:46497/tensorflow.html">tensorflow</a><br>
+</td><td width="25%" valign="top"></td><td width="25%" valign="top"></td></tr></tbody></table></td></tr></tbody></table></p><p>
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section">
+<tbody><tr bgcolor="#ee77aa">
+<td colspan="3" valign="bottom">&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="http://localhost:46497/builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="http://localhost:46497/model_load.html#ModelLoad">ModelLoad</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section">
+<tbody><tr bgcolor="#ffc8d8">
+<td colspan="3" valign="bottom">&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ModelLoad">class <strong>ModelLoad</strong></a>(<a href="http://localhost:46497/builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan="2"><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan="2"><tt><a href="http://localhost:46497/model_load.html#ModelLoad">ModelLoad</a>(tfLite=True)<br>
+&nbsp;<br>
+Load&nbsp;the&nbsp;model&nbsp;if&nbsp;exist&nbsp;in&nbsp;./src&nbsp;file&nbsp;directory<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tfLite&nbsp;(bool):&nbsp;A&nbsp;choose&nbsp;of&nbsp;load&nbsp;data&nbsp;depends&nbsp;on&nbsp;what&nbsp;the&nbsp;model&nbsp;saved&nbsp;in&nbsp;the&nbsp;.tf&nbsp;or&nbsp;.tflite.&nbsp;True&nbsp;if&nbsp;save&nbsp;in&nbsp;.tflite&nbsp;and&nbsp;otherwise.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="ModelLoad-__init__"><strong>__init__</strong></a>(self, tfLite=True)</dt><dd><tt>Initialize&nbsp;the&nbsp;Cleansing&nbsp;instance.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tfLite&nbsp;(bool):&nbsp;A&nbsp;choose&nbsp;of&nbsp;load&nbsp;data&nbsp;depends&nbsp;on&nbsp;what&nbsp;the&nbsp;model&nbsp;saved&nbsp;in&nbsp;the&nbsp;.tf&nbsp;or&nbsp;.tflite.&nbsp;True&nbsp;if&nbsp;save&nbsp;in&nbsp;.tflite&nbsp;and&nbsp;otherwise.</tt></dd></dl>
+
+<dl><dt><a name="ModelLoad-load_model"><strong>load_model</strong></a>(self)</dt><dd><tt>Load&nbsp;the&nbsp;model&nbsp;either&nbsp;tfLite&nbsp;or&nbsp;tf&nbsp;depend&nbsp;on&nbsp;what&nbsp;model&nbsp;saved&nbsp;in&nbsp;./src&nbsp;file&nbsp;directory</tt></dd></dl>
+
+<dl><dt><a name="ModelLoad-load_scale"><strong>load_scale</strong></a>(self)</dt><dd><tt>Load&nbsp;the&nbsp;scale&nbsp;that&nbsp;has&nbsp;been&nbsp;store&nbsp;by&nbsp;normalized&nbsp;function</tt></dd></dl>
+
+<dl><dt><a name="ModelLoad-predict"><strong>predict</strong></a>(self, inputs)</dt><dd><tt>Prediction&nbsp;function&nbsp;from&nbsp;dataframe&nbsp;arguments.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;inputs&nbsp;(DataFrame):&nbsp;A&nbsp;data&nbsp;represent&nbsp;to&nbsp;predict&nbsp;in&nbsp;DataFrame&nbsp;from&nbsp;Pandas&nbsp;Python&nbsp;Library.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></tbody></table></p></td></tr></tbody></table></p><p>
+<table width="100%" cellspacing="0" cellpadding="2" border="0" summary="section">
+<tbody><tr bgcolor="#55aa55">
+<td colspan="3" valign="bottom">&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>logger</strong> = &lt;mdclogpy.Logger.Logger object&gt;</td></tr></tbody></table></p></div>
+</body></html>
