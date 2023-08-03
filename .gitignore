@@ -119,8 +119,8 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
-.src/uedata.csv
-.src/tf_config.ini
+src/uedata.csv
+src/tf_config.ini
 
 # Environments
 .env
