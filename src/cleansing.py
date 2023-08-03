@@ -18,8 +18,8 @@ class Cleansing(object):
             df (DataFrame): An datasets that created by DataFrame by python library
             lookback (int): An lookback data will separated by lookback sequences
         """
-      self.df = df
-      self.lookback = lookback
+        self.df = df
+        self.lookback = lookback
 
     def change_to_field(self):
         """Change the data into the DataFrame that training want. It uses when use the offline data."""
@@ -51,5 +51,5 @@ class Cleansing(object):
         output_data = np.zeros((samples, time_steps, 7))
         for i in range(samples):
             input_data[i] = self.df.values[i:i+self.lookback].reshape((self.lookback, 7, 1, 1))
-            output_data[i] = output_features[i:i+time_steps].reshape((time_steps, 7))
+            output_data[i] = self.df.values[i:i+time_steps].reshape((time_steps, 7))
         return input_data,output_data
