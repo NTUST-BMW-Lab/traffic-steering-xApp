@@ -10,17 +10,24 @@ import pandas as pd
 logger = Logger(name=__name__)
 
 class Database(object):
-    r"""
-    Fetch the data from InfluxDB. InfluxDB has method get_field, get_measurement, get_start, get_stop, get_time, and get_value
-
-    Parameters
-    ----------
-    url: String
-    token: String
-    org: String
-    bucket: String
+    """Fetch the data from InfluxDB. InfluxDB has method get_field, get_measurement, get_start, get_stop, get_time, and get_value
+        
+        Args:
+            url (String): The url of the influxDB that you want to link it.
+            token (String): The tokenize of influxDB.
+            org (String): The destination org that you want to fetch
+            bucket (String): The destination bucket that you want to fetch
     """
     def __init__(self, url='', token='', org='', bucket=''):
+        """Initialize the Database instance.
+        
+        Args:
+            url (String): The url of the influxDB that you want to link it.
+            token (String): The tokenize of influxDB.
+            org (String): The destination org that you want to fetch
+            bucket (String): The destination bucket that you want to fetch
+        """
+        
         self.url = url
         self.token = token
         self.org = org
@@ -29,6 +36,8 @@ class Database(object):
         self.config()
 
     def connect(self):
+        """Connect to the link database that has been declare"""
+        
         self.config()
         if self.client is not None:
             self.client.close()
@@ -44,14 +53,18 @@ class Database(object):
             time.sleep(30)
     
     def disconnect(self):
+        """Disconnect from the database"""
+        
         if self.client is not None:
             self.client.close()
 
     def queries(self,params):
-        '''
-        Param 
-        Example |> range(start: -1m)
-        '''
+        """Initialize the Database instance.
+        
+        Args:
+            params (String): The argument of parameters for fetch last data,.e.g. [|> range(start: -1m)]
+        """
+
         try:
             column_names = ['DRB_UEThpUl', 'Viavi_Nb1_Rsrp', 'Viavi_Nb1_Rsrq', 'Viavi_Nb2_Rsrp', 'Viavi_Nb2_Rsrq', 'Viavi_UE_Rsrp', 'Viavi_UE_Rsrq']
             value_result = dict()
@@ -70,6 +83,8 @@ class Database(object):
             return None
 
     def config(self):
+        """Declare the data hasbeen store from .ini file and restore it in this function such as url,token,org, and bucket"""
+        
         cfg = ConfigParser()
         cfg.read('./src/tf_config.ini')
         for section in cfg.sections():
