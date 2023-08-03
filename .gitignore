@@ -120,6 +120,7 @@ celerybeat.pid
 *.sage.py
 
 ./src/uedata.csv
+./src/tf_config.ini
 
 # Environments
 .env
