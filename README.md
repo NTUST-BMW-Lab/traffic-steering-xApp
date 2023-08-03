@@ -5,15 +5,16 @@
 ## A. Directory Structure
 ```bash
 Traffic-Prediction-xApp
-|__ src # The source code of xApp do
+|__ src # The folder of source code of xApp do
 |   |__ cleansing.py # Make the data more trainable by cleansing it in scaler and create the sequences for training
 |   |__ database.py # Connecting to the database (InfluxDB) 
 |   |__ exceptions.py # Exception When The Code Not Execution Properly
 |   |__ main.py # Main File To Execution the xApp
 |   |__ model_load.py # Load the model that already exist
 |   |__ training.py # Train the model if the model isn't already exist
-|__ xapp-descriptor
+|__ xapp-descriptor # The folder of description of the xApp in Kubernetes
 |   |__ config.json # Configuration file for description of xApp
+|   |__ schema.json # Control section of container in one node of kubernetes
 |__ container-tag.yaml # Version Container
 |__ Dockerfile # DockerFile for running the xApp in container image of xApp
 |__ INFO.yaml # Information of the code
@@ -53,7 +54,7 @@ docker run -i --net=host tp-xapp:latest
 ```bash
 docker build -t tp-xapp:latest -f  Dockerfile .
 export CHART_REPO_URL=http://0.0.0.0:8090
-dms_cli onboard --config_file_path=./xapp-descriptor/config.json
+dms_cli onboard ./xapp-descriptor/config.json ./xapp-descriptor/schema.json
 dms_cli install tp-xapp 1.0.0 ricxapp
 ```
 
@@ -133,10 +134,11 @@ model_3dcnn = tf.keras.Sequential([
 lstm_input_shape = model_3dcnn.output_shape[1:]
 lstm_model = tf.keras.Sequential([
     tf.keras.layers.Reshape((time_steps, -1)),
-    tf.keras.layers.LSTM(256, activation='relu', input_shape=lstm_input_shape),
+    tf.keras.layers.LSTM(256, activation='relu', input_shape=lstm_input_shape, return_sequences = True),
+    tf.keras.layers.LSTM(128, activation='relu'),
     tf.keras.layers.Dense(64, activation='relu'),
-    tf.keras.layers.Dense(32, activation='relu'),
-    tf.keras.layers.Dense(7, activation='linear')
+    tf.keras.layers.Dense(time_steps * 7, activation='linear'),
+    tf.keras.layers.Reshape((time_steps, 7))
 ])
 combined_input = tf.keras.layers.Input(shape=(time_steps, 7, 1, 1))
 cnn_output = model_3dcnn(combined_input)
